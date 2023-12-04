@@ -1,0 +1,10 @@
+#!/bin/sh
+'''exec' "/Users/rohan/Others/Code/DataScience/Academic/Fall 23/CSCI 5922/Project/neural-art-utility/git/neural-art-utility/deepArt/bin/python" "$0" "$@"
+' '''
+# -*- coding: utf-8 -*-
+import re
+import sys
+from streamlit.web.cli import main
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())
