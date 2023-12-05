@@ -13,8 +13,7 @@ def load_pipeline():
     return pipe
 
 
-
-
+st.set_page_config(layout='wide', page_icon="🧑🏻‍🎨", )
 
 models = st.selectbox("Select a Model", ["Artist Classification", "Artwork Description Generator",], key="models")
 

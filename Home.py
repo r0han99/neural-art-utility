@@ -2,6 +2,8 @@ import streamlit as st
 import time
 import sys 
 import os
+import pandas as pd 
+
 
 
 # Function to read data
@@ -57,10 +59,14 @@ def simulate_typing(text, speed=0.00256):
 
 # Main function
 def main_cs():
+
+
+
     set_google_fonts()
 
     st.title("Deep Art Inference")
     st.markdown("---")
+    
 
     meta = read_data()
 
