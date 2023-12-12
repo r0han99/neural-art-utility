@@ -3,6 +3,8 @@ import random
 import os 
 import numpy as np
 from PIL import Image
+from keras.preprocessing import image
+from keras.preprocessing.image import ImageDataGenerator
 
 
 
@@ -44,8 +46,9 @@ def plot_artist(artist):
     global galleria_path
 
     artist_path = os.path.join(galleria_path, artist)
-
+    
     st.markdown(f'''<span style="font-family:avenir; color:orangered; font-size:50px; font-weight:bold;">{fix_name(artist)}</span>''',unsafe_allow_html=True)
+    
 
     columns = st.columns(3)
     for i, img in enumerate(images_dir[artist],0):
@@ -53,11 +56,51 @@ def plot_artist(artist):
         
         # for img dims
         image_arr = Image.open(img_path)
+        array = np.array(image_arr)
         
 
-        columns[i].image(img_path, use_column_width=True, caption="Image Shape {}".format(np.array(image_arr).shape))
         expander = columns[i].expander("Raw Data ~ Pixels", expanded=False)
-        expander.code(np.array(image_arr)[:10])
+        columns[i].image(img_path, use_column_width=True, caption="Image Shape {}".format(np.array(image_arr).shape))
+        expander.code(array)
+        
+       
+
+       # Reshape the array to fit the generator's requirements
+        array = np.expand_dims(array, axis=0)
+
+        # Create an ImageDataGenerator for augmentation
+        datagen = ImageDataGenerator(
+            validation_split=0.2,
+            rescale=1./255.,
+            rotation_range=45,
+            # width_shift_range=0.5,
+            # height_shift_range=0.5,
+            shear_range=5,
+            # zoom_range=0.7,
+            horizontal_flip=True,
+            vertical_flip=True
+        )
+
+        # Configure the generator to not apply data augmentation randomly
+        datagen.fit(array)
+
+        # Generate augmented data
+        augmented_data = next(datagen.flow(array, batch_size=1))
+
+        # Retrieve the augmented array
+        augmented_array = augmented_data[0]
+
+        expander = columns[i].expander("Augmented ~ Pixels", expanded=False)
+        columns[i].image(augmented_array, caption="Image Shape {}".format(np.array(image_arr).shape))
+        expander.code(augmented_array)
+
+         # Normalised 
+        expander = columns[i].expander("Normalised ~ Pixels", expanded=False)
+        expander.code(array/255.0)
+        columns[i].image(array, caption="Image Shape {}".format(np.array(image_arr).shape))
+        
+        expander.divider()
+    
 
 
 
@@ -78,8 +121,23 @@ def show_gallery(images_dir, artists):
 st.set_page_config(layout='wide', page_icon="🧑🏻‍🎨", )
 
 
-st.markdown(f'''<span style="font-family:georgia; color:dodgerblue; font-size:80px; font-weight:bold;"><i>Galleria</i></span>''',unsafe_allow_html=True)
+st.markdown(f'''<span style="font-family:georgia; color:dodgerblue; font-size:80px; font-weight:bold;"><i>Galleria <br> Data Preprocessing</i></span>''',unsafe_allow_html=True)
 st.divider()
 
+st.warning("Expand to see the Raw, Normalised and Augmented Pixel Data.")
+st.subheader("Configuration for Augmentation")
+st.code("""
+train_datagen = ImageDataGenerator(validation_split=0.2,
+                                   rescale=1./255.,
+                                   rotation_range=45,
+                                   shear_range=5,
+                                   horizontal_flip=True,
+                                   vertical_flip=True,
+                                  )
+
+""")
+
 images_dir, artists = pick_random()
+
+st.divider()
 show_gallery(images_dir, artists)
