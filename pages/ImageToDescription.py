@@ -1,5 +1,6 @@
 import pandas as pd
 from transformers import pipeline
+from PIL import Image
 import streamlit as st 
 
 @st.cache_resource
@@ -21,12 +22,14 @@ pipe = load_pipeline()
 
 if pipe:
     image = st.file_uploader("Upload an Artwork")
+    img_arr = Image.open(image)
+    img_arr = img_arr / 255.0
     image_place = st.empty()
 
     if image is not None:
-        image_place.image(image, use_column_width=True)
+        image_place.image(img_arr, use_column_width=True)
         try:
-            captions = pipe(image)
-            image_place.image(image, use_column_width=True, caption=f"{captions[0]['generated_text']}")
+            captions = pipe(img_arr)
+            image_place.image(img_arr, use_column_width=True, caption=f"{captions[0]['generated_text']}")
         except Exception as e:
             st.error(f"Error in generating caption: {e}")
