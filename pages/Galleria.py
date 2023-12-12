@@ -5,6 +5,7 @@ import numpy as np
 from PIL import Image
 from keras.preprocessing import image
 from keras.preprocessing.image import ImageDataGenerator
+import scipy
 
 
 
@@ -73,10 +74,8 @@ def plot_artist(artist):
             validation_split=0.2,
             rescale=1./255.,
             rotation_range=45,
-            # width_shift_range=0.5,
-            # height_shift_range=0.5,
+
             shear_range=5,
-            # zoom_range=0.7,
             horizontal_flip=True,
             vertical_flip=True
         )
