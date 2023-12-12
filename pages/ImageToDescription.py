@@ -15,17 +15,15 @@ def load_pipeline():
 
 st.set_page_config(layout='wide', page_icon="🧑🏻‍🎨", )
 
-models = st.selectbox("Select a Model", ["Artist Classification", "Artwork Description Generator",], key="models")
 
+st.title("Artwork Description Generator")
+pipe = load_pipeline()
 
-if models == "Artwork Description Generator":
-    pipe = load_pipeline()
+image = st.file_uploader("Upload an Artwork")
+image_place = st.empty()
+image_place.image(image, use_column_width=True)
 
-    image = st.file_uploader("Upload an Artwork")
-    image_place = st.empty()
-    image_place.image(image, use_column_width=True)
-
-    captions = pipe(image)
-    image_place.image(image, use_column_width=True, caption=f"{captions[0]['generated_text']}")
+captions = pipe(image)
+image_place.image(image, use_column_width=True, caption=f"{captions[0]['generated_text']}")
 
 
