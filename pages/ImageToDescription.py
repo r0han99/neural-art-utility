@@ -8,7 +8,7 @@ import streamlit as st
 def load_pipeline():
 
     # Create the pipeline for image-to-text
-    pipe = pipeline("image-to-text", model="nlpconnect/vit-gpt2-image-captioning")
+    pipe = pipeline("image-to-text", model="nlpconnect/vit-gpt2-image-captioning", from_pt=True)
 
     return pipe
 
