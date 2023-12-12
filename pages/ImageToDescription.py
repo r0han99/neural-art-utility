@@ -1,5 +1,6 @@
 import pandas as pd
 from transformers import pipeline
+import numpy as np
 from PIL import Image
 import streamlit as st 
 
@@ -20,13 +21,16 @@ st.set_page_config(layout='wide', page_icon="🧑🏻‍🎨")
 st.title("Artwork Description Generator")
 pipe = load_pipeline()
 
+
 if pipe:
     uploaded_file = st.file_uploader("Upload an Artwork", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
 
+
         img_arr = Image.open(uploaded_file)
-        img_arr = img_arr / 255.0
+        img_arr = np.array(img_arr)
+        img_arr = img_arr/255
         image_place = st.empty()
 
         image_place.image(img_arr, use_column_width=True)
