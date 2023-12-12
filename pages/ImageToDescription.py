@@ -21,12 +21,14 @@ st.title("Artwork Description Generator")
 pipe = load_pipeline()
 
 if pipe:
-    image = st.file_uploader("Upload an Artwork")
-    img_arr = Image.open(image)
-    img_arr = img_arr / 255.0
-    image_place = st.empty()
+    uploaded_file = st.file_uploader("Upload an Artwork", type=["jpg", "jpeg", "png"])
 
-    if image is not None:
+    if uploaded_file is not None:
+
+        img_arr = Image.open(uploaded_file)
+        img_arr = img_arr / 255.0
+        image_place = st.empty()
+
         image_place.image(img_arr, use_column_width=True)
         try:
             captions = pipe(img_arr)
