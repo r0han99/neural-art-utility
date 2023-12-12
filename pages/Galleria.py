@@ -50,56 +50,82 @@ def plot_artist(artist):
     
     st.markdown(f'''<span style="font-family:avenir; color:orangered; font-size:50px; font-weight:bold;">{fix_name(artist)}</span>''',unsafe_allow_html=True)
     
+    tab1, tab2, tab3 = st.tabs(["Raw", "Augmented", "Normalised"])
 
-    columns = st.columns(3)
-    for i, img in enumerate(images_dir[artist],0):
-        img_path = os.path.join(artist_path, img)
-        
-        # for img dims
-        image_arr = Image.open(img_path)
-        array = np.array(image_arr)
-        
-
-        expander = columns[i].expander("Raw Data ~ Pixels", expanded=False)
-        columns[i].image(img_path, use_column_width=True, caption="Image Shape {}".format(np.array(image_arr).shape))
-        expander.code(array)
-        
-       
-
-       # Reshape the array to fit the generator's requirements
-        array = np.expand_dims(array, axis=0)
-
-        # Create an ImageDataGenerator for augmentation
-        datagen = ImageDataGenerator(
-            validation_split=0.2,
-            rescale=1./255.,
-            rotation_range=45,
-
-            shear_range=5,
-            horizontal_flip=True,
-            vertical_flip=True
-        )
-
-        # Configure the generator to not apply data augmentation randomly
-        datagen.fit(array)
-
-        # Generate augmented data
-        augmented_data = next(datagen.flow(array, batch_size=1))
-
-        # Retrieve the augmented array
-        augmented_array = augmented_data[0]
-
-        expander = columns[i].expander("Augmented ~ Pixels", expanded=False)
-        columns[i].image(augmented_array, caption="Image Shape {}".format(np.array(image_arr).shape))
-        expander.code(augmented_array)
-
-         # Normalised 
-        expander = columns[i].expander("Normalised ~ Pixels", expanded=False)
-        expander.code(array/255.0)
-        columns[i].image(array, caption="Image Shape {}".format(np.array(image_arr).shape))
-        
-        expander.divider()
     
+
+    with tab1:
+        columns = st.columns(3)
+        for i, img in enumerate(images_dir[artist],0):
+            img_path = os.path.join(artist_path, img)
+            
+            # for img dims
+            image_arr = Image.open(img_path)
+            array = np.array(image_arr)
+            
+            
+            expander = columns[i].expander("Raw Data ~ Pixels", expanded=False)
+            columns[i].image(img_path, use_column_width=True, caption="Image Shape {}".format(np.array(image_arr).shape))
+            expander.code(array)
+    
+
+    with tab2:
+        columns = st.columns(3)
+        for i, img in enumerate(images_dir[artist],0):
+            img_path = os.path.join(artist_path, img)
+            
+            # for img dims
+            image_arr = Image.open(img_path)
+            array = np.array(image_arr)
+
+            
+
+            # Reshape the array to fit the generator's requirements
+            array = np.expand_dims(array, axis=0)
+
+            # Create an ImageDataGenerator for augmentation
+            datagen = ImageDataGenerator(
+                validation_split=0.2,
+                rescale=1./255.,
+                rotation_range=45,
+
+                shear_range=5,
+                horizontal_flip=True,
+                vertical_flip=True
+            )
+
+            # Configure the generator to not apply data augmentation randomly
+            datagen.fit(array)
+
+            # Generate augmented data
+            augmented_data = next(datagen.flow(array, batch_size=1))
+
+            # Retrieve the augmented array
+            augmented_array = augmented_data[0]
+
+            expander = columns[i].expander("Augmented ~ Pixels", expanded=False)
+            columns[i].image(augmented_array, caption="Image Shape {}".format(np.array(image_arr).shape))
+            expander.code(augmented_array)
+
+
+    with tab3:
+        columns = st.columns(3)
+        for i, img in enumerate(images_dir[artist],0):
+            img_path = os.path.join(artist_path, img)
+
+            # for img dims
+            image_arr = Image.open(img_path)
+            array = np.array(image_arr)
+
+
+
+            # Normalised 
+            expander = columns[i].expander("Normalised ~ Pixels", expanded=False)
+            expander.code(array/255.0)
+            columns[i].image(array, caption="Image Shape {}".format(np.array(image_arr).shape))
+            
+            expander.divider()
+
 
 
 
@@ -120,7 +146,8 @@ def show_gallery(images_dir, artists):
 st.set_page_config(layout='wide', page_icon="🧑🏻‍🎨", )
 
 
-st.markdown(f'''<span style="font-family:georgia; color:dodgerblue; font-size:80px; font-weight:bold;"><i>Galleria <br> Data Preprocessing</i></span>''',unsafe_allow_html=True)
+st.markdown(f'''<span style="font-family:georgia; color:dodgerblue; font-size:80px; font-weight:bold;"><i>Galleria</i></span>''',unsafe_allow_html=True)
+st.subheader("Data Preperation",divider="red")
 st.divider()
 
 st.warning("Expand to see the Raw, Normalised and Augmented Pixel Data.")
