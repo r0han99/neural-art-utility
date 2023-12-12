@@ -6,4 +6,4 @@ matplotlib
 seaborn 
 tensorflow 
 transformers
-pytorch
+torch
