@@ -28,14 +28,14 @@ if pipe:
     if uploaded_file is not None:
 
 
-        img_arr = Image.open(uploaded_file)
-        img_arr = np.array(img_arr)
+        image = Image.open(uploaded_file)
+        img_arr = np.array(image)
         img_arr = img_arr/255
         image_place = st.empty()
 
-        image_place.image(img_arr, use_column_width=True)
+        image_place.image(image, use_column_width=True)
         try:
-            captions = pipe(img_arr)
-            image_place.image(img_arr, use_column_width=True, caption=f"{captions[0]['generated_text']}")
+            captions = pipe(image)
+            image_place.image(image, use_column_width=True, caption=f"{captions[0]['generated_text']}")
         except Exception as e:
             st.error(f"Error in generating caption: {e}")
