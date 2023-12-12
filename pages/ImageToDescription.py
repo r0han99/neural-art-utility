@@ -22,5 +22,10 @@ if models == "Artwork Description Generator":
     pipe = load_pipeline()
 
     image = st.file_uploader("Upload an Artwork")
-    st.image(image, use_column_width=True)
+    image_place = st.empty()
+    image_place.image(image, use_column_width=True)
+
+    captions = pipe(image)
+    image_place.image(image, use_column_width=True, caption=f"{captions[0]['generated_text']}")
+
 
