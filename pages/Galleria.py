@@ -148,7 +148,7 @@ st.set_page_config(layout='wide', page_icon="🧑🏻‍🎨", )
 
 st.markdown(f'''<span style="font-family:georgia; color:dodgerblue; font-size:80px; font-weight:bold;"><i>Galleria</i></span>''',unsafe_allow_html=True)
 st.subheader("Data Preperation",divider="red")
-st.divider()
+
 
 st.warning("Expand to see the Raw, Normalised and Augmented Pixel Data.")
 st.subheader("Configuration for Augmentation")

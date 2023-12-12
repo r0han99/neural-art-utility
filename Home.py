@@ -61,20 +61,20 @@ def simulate_typing(text, speed=0.00256):
 def main_cs():
 
 
-    st.markdown(f'''<center><span style="font-family:georgia; color:orangered; font-size:90px; font-weight:bold;"><i>Deep Art Inference</i></span></center>''',unsafe_allow_html=True)
+    st.markdown(f'''<center><span style="font-family:avenir; color:orangered; font-size:70px; font-weight:bold;"><i>Deep Art Inference</i></span></center>''',unsafe_allow_html=True)
     st.divider()
     
 
     meta = read_data()
 
-    #st.write(meta)
-    st.sidebar.markdown(f'''<span style="font-family:Avenir; color:white; font-size:35px; font-weight:bold; ">The Idea</span>''',unsafe_allow_html=True)
-    about = '''Enter our creative playground! My software blends cutting-edge technology with creative discovery. My canvas encourages you to explore art via a variety of unique methods. Ever wondered who created a masterpiece? Model-1 uses machine learning classification to properly identify artists by examining styles, color palettes, and brush strokes. Enter Model-2, a captivating Siamese Network that compares art to discover how it blends. My Art-to-Description Model-3 Transformer uses words to create colorful descriptions of artworks. Check out Model-4, where Neural Style Transfer and GANs create new creative forms by transferring styles or creating originals. Technology and art combine in the most interesting and surprising ways on this amazing voyage!'''
-    st.sidebar.markdown(f'''<span style="font-family:georgia; color:orange; text-align: center; font-size:16px; font-style: italic; ">{about}</span>''',unsafe_allow_html=True)
-    st.sidebar.divider()
+    # #st.write(meta)
+    # st.sidebar.markdown(f'''<span style="font-family:Avenir; color:white; font-size:35px; font-weight:bold; ">The Idea</span>''',unsafe_allow_html=True)
+    # about = '''Explore!'''
+    # st.sidebar.markdown(f'''<span style="font-family:georgia; color:orange; text-align: center; font-size:16px; font-style: italic; ">{about}</span>''',unsafe_allow_html=True)
+    # st.sidebar.divider()
 
 
-    st.markdown(f'''<span style="font-family:georgia; color:orange; font-size:50px; font-weight:bold; "><i>Know the Artist </i>🧑🏻‍🎨</span>''',unsafe_allow_html=True)
+    st.markdown(f'''<span style="font-family:avenir; color:orange; font-size:50px; font-weight:bold; "><i>Know the Artist </i>🧑🏻‍🎨</span>''',unsafe_allow_html=True)
     st.markdown("")
 
     artist = st.selectbox("Artist", meta['name'], key='artist-selection')
