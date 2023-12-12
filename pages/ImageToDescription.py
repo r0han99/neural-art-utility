@@ -4,7 +4,7 @@ import streamlit as st
 
 
 
-@st.cache_resource
+@st.cache
 def load_pipeline():
 
     # Create the pipeline for image-to-text
