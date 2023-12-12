@@ -1,15 +1,13 @@
 import pandas as pd
-from transformers import pipeline, AutoTokenizer, AutoModelForVision2Seq
+from transformers import pipeline
 import streamlit as st 
 
 def load_pipeline():
     try:
-        # Explicitly specify the model and tokenizer
-        tokenizer = AutoTokenizer.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
-        model = AutoModelForVision2Seq.from_pretrained("nlpconnect/vit-gpt2-image-captioning", from_pt=True)
+        # Create the pipeline for image-to-text
 
-        # Create the pipeline
-        pipe = pipeline("image-to-text", model=model, tokenizer=tokenizer)
+        pipe = pipeline("image-to-text", model="nlpconnect/vit-gpt2-image-captioning")
+        
         return pipe
     except Exception as e:
         st.error(f"Failed to load the pipeline: {e}")
