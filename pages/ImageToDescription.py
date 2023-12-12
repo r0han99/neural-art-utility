@@ -2,6 +2,7 @@ import pandas as pd
 from transformers import pipeline
 import streamlit as st 
 
+@st.cache_resource
 def load_pipeline():
     try:
         # Create the pipeline for image-to-text
