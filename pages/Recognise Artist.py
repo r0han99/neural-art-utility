@@ -82,7 +82,7 @@ st.subheader("Artwork Description Generator", divider='red')
 cols = st.columns([5,3,5])
 
 with cols[0]:
-    st.markdown('''<span style="font-size:25px; font-family:menlo">Download InceptionResNet_Final_Tuned.keras</span>''',unsafe_allow_html=True)
+    st.markdown('''<span style="font-size:15px; font-family:menlo">Download InceptionResNet_Final_Tuned.keras</span>''',unsafe_allow_html=True)
 
 with cols[2]:
     st.link_button("Download",url="https://drive.google.com/file/d/17Ji5Yy6xMUyxNhW2nzV5szMuhQLwkfMy/view?usp=drive_link")
