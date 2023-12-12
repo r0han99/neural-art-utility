@@ -18,11 +18,14 @@ def load_pipeline():
 
 st.set_page_config(layout='wide', page_icon="🧑🏻‍🎨")
 
-st.title("Artwork Description Generator")
+st.subheader("Artwork Description Generator", divider='red')
 
+pipe=False
 if st.button("Click to Load the Model!"):
     if st.checkbox("Caution! it might break the app, you can always see the model working @huggingface"):
         pipe = load_pipeline()
+
+
 
 
 if pipe:
