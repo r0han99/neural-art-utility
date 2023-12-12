@@ -3,8 +3,6 @@ from transformers import pipeline
 import streamlit as st 
 
 
-
-@st.cache
 def load_pipeline():
 
     # Create the pipeline for image-to-text
